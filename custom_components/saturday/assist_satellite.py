@@ -194,7 +194,9 @@ class SaturdaySatellite(AssistSatelliteEntity):
     ) -> None:
         """Send FCM high-priority data message to trigger native call screen."""
         try:
+            _LOGGER.info("FCM: getting access token for project %s", self._fcm_project_id)
             access_token = await self._get_fcm_access_token(session)
+            _LOGGER.info("FCM: got access token (length=%d)", len(access_token))
 
             fcm_payload = {
                 "message": {
@@ -214,6 +216,7 @@ class SaturdaySatellite(AssistSatelliteEntity):
             }
 
             url = f"https://fcm.googleapis.com/v1/projects/{self._fcm_project_id}/messages:send"
+            _LOGGER.info("FCM: POST %s with topic=%s", url, FCM_TOPIC)
 
             async with session.post(
                 url,
@@ -224,13 +227,12 @@ class SaturdaySatellite(AssistSatelliteEntity):
                 },
                 timeout=aiohttp.ClientTimeout(total=10),
             ) as resp:
+                body = await resp.text()
+                _LOGGER.info("FCM: response %s: %s", resp.status, body)
                 if resp.status not in (200, 201):
-                    body = await resp.text()
                     _LOGGER.error("FCM send failed: %s %s", resp.status, body)
-                else:
-                    _LOGGER.debug("FCM message sent for call %s", call_id)
-        except (aiohttp.ClientError, TimeoutError) as err:
-            _LOGGER.error("FCM send error: %s", err)
+        except Exception as err:
+            _LOGGER.error("FCM send error: %s: %s", type(err).__name__, err, exc_info=True)
 
     async def _get_fcm_access_token(self, session: aiohttp.ClientSession) -> str:
         """Get an OAuth2 access token for FCM using a service account."""
@@ -284,4 +286,7 @@ class SaturdaySatellite(AssistSatelliteEntity):
             },
         ) as resp:
             token_data = await resp.json()
+            if "access_token" not in token_data:
+                _LOGGER.error("FCM: OAuth token exchange failed: %s", token_data)
+                raise HomeAssistantError(f"FCM OAuth failed: {token_data}")
             return token_data["access_token"]
