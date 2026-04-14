@@ -4,7 +4,8 @@
   "codeowners": [],
   "config_flow": true,
   "dependencies": ["assist_satellite", "webhook"],
-  "documentation": "https://github.com/pegasus-home-lab/homelab-hacs",
+  "documentation": "https://github.com/samsinnamon/homelab-hacs",
   "iot_class": "cloud_push",
-  "version": "0.1.0"
+  "requirements": ["cryptography>=43.0.0"],
+  "version": "0.2.0"
 }

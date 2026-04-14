@@ -3,18 +3,24 @@
     "step": {
       "user": {
         "title": "Saturday Voice Satellite",
-        "description": "Configure the Saturday web voice satellite.",
+        "description": "Configure the Saturday web voice satellite. FCM fields are optional - fill them in to enable native Android call screen.",
         "data": {
           "name": "Satellite name",
           "server_url": "Saturday server URL",
           "ntfy_url": "ntfy server URL",
-          "ntfy_topic": "ntfy topic"
+          "ntfy_topic": "ntfy topic",
+          "fcm_project_id": "Firebase project ID",
+          "fcm_service_account": "Firebase service account JSON",
+          "fcm_device_token": "FCM device token"
         },
         "data_description": {
           "name": "Display name for this satellite device.",
           "server_url": "The URL of the Saturday web app (e.g., https://sat.example.com).",
           "ntfy_url": "The URL of the ntfy server (e.g., https://ntfy.example.com).",
-          "ntfy_topic": "The ntfy topic to publish call notifications to."
+          "ntfy_topic": "The ntfy topic to publish call notifications to.",
+          "fcm_project_id": "Firebase project ID (e.g., my-project-12345). Found in Firebase Console > Project Settings.",
+          "fcm_service_account": "Full JSON contents of a Firebase service account key file.",
+          "fcm_device_token": "The FCM registration token from the Saturday Android app. Check logcat for 'FCM token refreshed'."
         }
       }
     },
