@@ -11,6 +11,7 @@ import voluptuous as vol
 
 from homeassistant.config_entries import ConfigFlow
 from homeassistant.const import CONF_NAME
+from homeassistant.helpers import selector
 
 from .const import (
     CONF_FCM_PROJECT_ID,
@@ -29,12 +30,14 @@ def _build_schema(defaults: dict[str, Any] | None = None) -> vol.Schema:
     d = defaults or {}
     return vol.Schema(
         {
-            vol.Required(CONF_NAME, default=d.get(CONF_NAME, "Saturday")): str,
-            vol.Required(CONF_SERVER_URL, default=d.get(CONF_SERVER_URL, "https://sat.example.com")): str,
-            vol.Required(CONF_NTFY_URL, default=d.get(CONF_NTFY_URL, "https://ntfy.example.com")): str,
-            vol.Required(CONF_NTFY_TOPIC, default=d.get(CONF_NTFY_TOPIC, "saturday")): str,
-            vol.Optional(CONF_FCM_PROJECT_ID, default=d.get(CONF_FCM_PROJECT_ID, "")): str,
-            vol.Optional(CONF_FCM_SERVICE_ACCOUNT, default=d.get(CONF_FCM_SERVICE_ACCOUNT, "")): str,
+            vol.Required(CONF_NAME, default=d.get(CONF_NAME, "Saturday")): selector.TextSelector(),
+            vol.Required(CONF_SERVER_URL, default=d.get(CONF_SERVER_URL, "https://sat.example.com")): selector.TextSelector(),
+            vol.Required(CONF_NTFY_URL, default=d.get(CONF_NTFY_URL, "https://ntfy.example.com")): selector.TextSelector(),
+            vol.Required(CONF_NTFY_TOPIC, default=d.get(CONF_NTFY_TOPIC, "saturday")): selector.TextSelector(),
+            vol.Optional(CONF_FCM_PROJECT_ID, default=d.get(CONF_FCM_PROJECT_ID, "")): selector.TextSelector(),
+            vol.Optional(CONF_FCM_SERVICE_ACCOUNT, default=d.get(CONF_FCM_SERVICE_ACCOUNT, "")): selector.TextSelector(
+                selector.TextSelectorConfig(multiline=True)
+            ),
         }
     )
 
