@@ -10,8 +10,7 @@
           "ntfy_url": "ntfy server URL",
           "ntfy_topic": "ntfy topic",
           "fcm_project_id": "Firebase project ID",
-          "fcm_service_account": "Firebase service account JSON",
-          "fcm_device_token": "FCM device token"
+          "fcm_service_account": "Firebase service account JSON"
         },
         "data_description": {
           "name": "Display name for this satellite device.",
@@ -19,8 +18,7 @@
           "ntfy_url": "The URL of the ntfy server (e.g., https://ntfy.example.com).",
           "ntfy_topic": "The ntfy topic to publish call notifications to.",
           "fcm_project_id": "Firebase project ID (e.g., my-project-12345). Found in Firebase Console > Project Settings.",
-          "fcm_service_account": "Full JSON contents of a Firebase service account key file.",
-          "fcm_device_token": "The FCM registration token from the Saturday Android app. Check logcat for 'FCM token refreshed'."
+          "fcm_service_account": "Full JSON contents of a Firebase service account key file. Generate from Firebase Console > Project Settings > Service accounts."
         }
       }
     },

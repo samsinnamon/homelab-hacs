@@ -13,7 +13,6 @@ from homeassistant.config_entries import ConfigFlow
 from homeassistant.const import CONF_NAME
 
 from .const import (
-    CONF_FCM_DEVICE_TOKEN,
     CONF_FCM_PROJECT_ID,
     CONF_FCM_SERVICE_ACCOUNT,
     CONF_NTFY_TOPIC,
@@ -32,7 +31,6 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
         vol.Required(CONF_NTFY_TOPIC, default="saturday"): str,
         vol.Optional(CONF_FCM_PROJECT_ID): str,
         vol.Optional(CONF_FCM_SERVICE_ACCOUNT): str,
-        vol.Optional(CONF_FCM_DEVICE_TOKEN): str,
     }
 )
 

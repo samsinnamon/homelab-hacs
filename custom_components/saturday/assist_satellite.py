@@ -22,7 +22,6 @@ from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import (
-    CONF_FCM_DEVICE_TOKEN,
     CONF_FCM_PROJECT_ID,
     CONF_FCM_SERVICE_ACCOUNT,
     CONF_NTFY_TOPIC,
@@ -30,6 +29,7 @@ from .const import (
     CONF_SERVER_URL,
     DEFAULT_CALL_TIMEOUT,
     DOMAIN,
+    FCM_TOPIC,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -65,7 +65,6 @@ class SaturdaySatellite(AssistSatelliteEntity):
         # FCM config (optional)
         self._fcm_project_id: str | None = entry.data.get(CONF_FCM_PROJECT_ID)
         self._fcm_service_account: str | None = entry.data.get(CONF_FCM_SERVICE_ACCOUNT)
-        self._fcm_device_token: str | None = entry.data.get(CONF_FCM_DEVICE_TOKEN)
 
         self._attr_unique_id = entry.entry_id
         self._attr_device_info = {
@@ -78,11 +77,7 @@ class SaturdaySatellite(AssistSatelliteEntity):
     @property
     def _fcm_enabled(self) -> bool:
         """Check if FCM is configured."""
-        return bool(
-            self._fcm_project_id
-            and self._fcm_service_account
-            and self._fcm_device_token
-        )
+        return bool(self._fcm_project_id and self._fcm_service_account)
 
     @property
     def _pending_calls(self) -> dict[str, asyncio.Event]:
@@ -203,7 +198,7 @@ class SaturdaySatellite(AssistSatelliteEntity):
 
             fcm_payload = {
                 "message": {
-                    "token": self._fcm_device_token,
+                    "topic": FCM_TOPIC,
                     "data": {
                         "type": "incoming_call",
                         "call_id": call_id,
