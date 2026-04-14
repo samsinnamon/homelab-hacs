@@ -1,0 +1,10 @@
+{
+  "domain": "saturday",
+  "name": "Saturday Voice Satellite",
+  "codeowners": [],
+  "config_flow": true,
+  "dependencies": ["assist_satellite", "webhook"],
+  "documentation": "https://github.com/pegasus-home-lab/homelab-hacs",
+  "iot_class": "cloud_push",
+  "version": "0.1.0"
+}

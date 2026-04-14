@@ -1,0 +1,25 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Saturday Voice Satellite",
+        "description": "Configure the Saturday web voice satellite.",
+        "data": {
+          "name": "Satellite name",
+          "server_url": "Saturday server URL",
+          "ntfy_url": "ntfy server URL",
+          "ntfy_topic": "ntfy topic"
+        },
+        "data_description": {
+          "name": "Display name for this satellite device.",
+          "server_url": "The URL of the Saturday web app (e.g., https://sat.example.com).",
+          "ntfy_url": "The URL of the ntfy server (e.g., https://ntfy.example.com).",
+          "ntfy_topic": "The ntfy topic to publish call notifications to."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to Saturday server."
+    }
+  }
+}
